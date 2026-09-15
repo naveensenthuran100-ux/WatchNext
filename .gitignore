@@ -1,0 +1,22 @@
+venv/
+.env
+__pycache__/
+*.pyc
+.DS_Store
+data/*.db
+data/*.db-wal
+data/*.db-shm
+data/model.joblib
+data/users.json
+data/features_cache.json
+
+# Built artifacts - all regenerable, none belong in git.
+# Note: git has no trailing comments in .gitignore, so these stay bare.
+# rebuild: python -m src.embed
+data/embeddings.npz
+# rebuild: python -m src.collab
+data/collab.npz
+# rebuild: python -m src.graph
+data/graph.npz
+# raw MovieLens dataset, ~1.6GB
+data/movielens/
