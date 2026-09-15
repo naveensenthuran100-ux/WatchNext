@@ -1,0 +1,26 @@
+[Unit]
+# systemd service for the WatchNext Telegram bot.
+# Install: see DEPLOY.md. Runs the bot under long-polling and restarts it
+# on crash or reboot. No inbound ports are needed - the bot only makes
+# outbound calls (Telegram, Groq, TMDB).
+Description=WatchNext Telegram movie bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/WatchNext
+# The venv's python, so system Python is irrelevant. .env is read by the
+# app itself (python-dotenv), so no EnvironmentFile line is required.
+ExecStart=/home/ubuntu/WatchNext/venv/bin/python -m src.bot
+Restart=always
+RestartSec=5
+# Give a slow first start (model load) room before systemd calls it failed.
+TimeoutStartSec=120
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=watchnext
+
+[Install]
+WantedBy=multi-user.target
