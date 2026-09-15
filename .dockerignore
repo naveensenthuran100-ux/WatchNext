@@ -1,0 +1,12 @@
+# Keep the build context small. The model files and DB are mounted at
+# run time (a volume), not copied in; MovieLens is only for rebuilds.
+.git
+venv
+__pycache__
+**/__pycache__
+*.pyc
+.env
+data
+tests
+deploy
+*.md
